@@ -1,6 +1,5 @@
 import json
 import os
-import time
 
 from amino.client import Client
 from lib.MessageHandler import MessageHandler
@@ -42,8 +41,8 @@ class Bot:
         self.log_in()
         self.choose_amino()
         self.choose_chats()
+
         self.client.callbacks = MessageHandler(self.client, self.selected_chats)
-        #TIMER RESTART
 
     def log_in(self):
         """

@@ -1,7 +1,6 @@
 import json
 from locale import getdefaultlocale as locale
-from time import time, timezone, sleep
-
+from time import time, timezone
 
 import requests
 
@@ -11,7 +10,7 @@ from amino.lib.util.exceptions import UnknownResponse
 
 
 class Client():
-    def __init__(self, path="device.json", callback=socket.Callbacks, socket_trace=True):
+    def __init__(self, path="device.json", callback=socket.Callbacks, socket_trace=False):
         """
         Build the client.
         path: optional location where the generated device info will be stored

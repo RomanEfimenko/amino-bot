@@ -86,6 +86,8 @@ class Bot:
         c = 0
         for i in self.chats:
             if not i.title:
+                print(str(c) + '. приватный чат')
+                c += 1
                 continue
 
             print(str(c) + '. ' + i.title)
@@ -95,5 +97,7 @@ class Bot:
         self.selected_chats = []
         for i in selected_chats:
             self.selected_chats.append(self.chats[int(i)])
-
+            if not self.chats[int(i)].title:
+                log("Начинаю мониторить приватный чат")
+                continue
             log("Начинаю мониторить чат " + self.chats[int(i)].title)

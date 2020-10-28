@@ -25,14 +25,14 @@ class Obscene:
         obscene_pattern = r''.join(['(' + ''.join(x + '|' for x in self.obscene) + ')'])[:-2] + ')'
         non_obscene_pattern = r''.join(['(' + ''.join(x + '|' for x in self.not_obscene) + ')'])[:-2] + ')'
 
-        patterns = [
-            r'пош(е|ё)л\s?(т(ы|и))?\s?на',
-            r'бл(е)?(я|а)+т',
-        ]
-
-        for i in patterns:
-            if re.search(i, text, flags=re.IGNORECASE | re.UNICODE):
-                return False
+        #patterns = [
+        #    r'пош(е|ё)л\s?(т(ы|и))?\s?на',
+        #    r'бл(е)?(я|а)+т',
+        #]
+        #выражения условные
+        #for i in patterns:
+        #    if re.search(i, text, flags=re.IGNORECASE | re.UNICODE):
+        #        return False
 
         if re.search(obscene_pattern, text, flags=re.IGNORECASE | re.UNICODE) and not re.search(
                 non_obscene_pattern, text, flags=re.IGNORECASE | re.UNICODE):

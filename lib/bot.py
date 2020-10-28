@@ -1,9 +1,11 @@
 import json
 import os
+import time
 
 from amino.client import Client
 from lib.MessageHandler import MessageHandler
 from lib.logger import log
+
 
 
 class Bot:
@@ -17,6 +19,7 @@ class Bot:
         """
 
         self.client = Client()
+        self.bot_start = False
 
         # Check if config file exists
         if not os.path.exists(os.getcwd() + '/config.json'):
@@ -38,17 +41,23 @@ class Bot:
             self.password = data['password']
 
     def run(self):
-        self.log_in()
-        self.choose_amino()
-        self.choose_chats()
-
-        self.client.callbacks = MessageHandler(self.client, self.selected_chats)
+        if self.bot_start == False:
+            self.log_in()
+            self.choose_amino()
+            self.choose_chats()
+            self.client.callbacks = MessageHandler(self.client, self.selected_chats)
+            self.bot_start = True
+        else:
+            log("Повторное создание клиента")
+            self.client = None
+            self.client = Client()
+            self.log_in()
+            self.client.callbacks = MessageHandler(self.client, self.selected_chats)
 
     def log_in(self):
         """
         Logging in to an account and choosing amino, chats
         """
-
         log("Пытаюсь войти в Амино...")
         self.client.login(self.login, self.password)
         if self.client.authenticated:
@@ -73,8 +82,8 @@ class Bot:
 
             c += 1
 
-        self.selected_amino = aminos[int(input("Выберите одно из амино: "))]
-
+        #self.selected_amino = aminos[int(input("Выберите одно из амино: "))]#1 test 2 lampovie
+        self.selected_amino = aminos[int("2")]
         log(f"Вы выбрали {self.selected_amino}")
         print()
 
@@ -93,7 +102,8 @@ class Bot:
             print(str(c) + '. ' + i.title)
             c += 1
 
-        selected_chats = input("Окей, теперь выбери чаты через запятую (например 0,2,3): ").split(',')
+        #selected_chats = input("Окей, теперь выбери чаты через запятую (например 0,2,3): ").split(',')#0 тестовый чат/18+ люда
+        selected_chats = "0,1,2".split(',')
         self.selected_chats = []
         for i in selected_chats:
             self.selected_chats.append(self.chats[int(i)])

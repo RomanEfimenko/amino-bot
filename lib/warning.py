@@ -2,7 +2,7 @@ import json
 import os
 
 
-def add(uid):
+def warning(uid):
     """
     Adds a warning to user
     """

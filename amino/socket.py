@@ -17,11 +17,12 @@ class SocketHandler():
         self.headers = None
         self.socket = None
         self.socket_thread = None
+        self.reconnect = True
 
         websocket.enableTrace(socket_trace)
 
     def on_open(self):
-        pass
+        return 1
 
     def on_close(self):
         self.active = False
@@ -56,8 +57,8 @@ class SocketHandler():
             on_ping=self.on_ping,
             header=self.headers
         )
-
         self.socket_thread = threading.Thread(target=self.socket.run_forever, kwargs={"ping_interval": 60})
+        self.socket_thread.daemon = True
         self.socket_thread.start()
         self.active = True
 
@@ -65,7 +66,6 @@ class SocketHandler():
         self.reconnect = False
         self.active = False
         self.socket.close()
-
 
 class Callbacks:
     def __init__(self, client):

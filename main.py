@@ -1,7 +1,8 @@
 import logging
 import os
-
+import time
 import git
+import sys
 
 import config
 from lib.bot import Bot
@@ -54,6 +55,11 @@ if __name__ == '__main__':
     logging.info('STARTED')
     try:
         bot.run()
+        while True:
+            time.sleep(470)
+            sys.exit()
+            #time.sleep(470)
+            #bot.run()
     except KeyboardInterrupt:
         print("Бот завершил свою работу")
         logging.info('STOPPED')

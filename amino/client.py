@@ -1,6 +1,7 @@
 import json
 from locale import getdefaultlocale as locale
-from time import time, timezone
+from time import time, timezone, sleep
+
 
 import requests
 
@@ -38,6 +39,8 @@ class Client():
         self.callbacks = callback(self)
 
         self.client_config()
+
+
 
     def login(self, email: str, password: str):
         """
@@ -143,6 +146,9 @@ class Client():
             headers["NDCAUTH"] = f"sid={self.sid}"
 
         return headers
+
+    def exit(self):
+        self.sys.exit()
 
     @property
     def sub_clients(self):
